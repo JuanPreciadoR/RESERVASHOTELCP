@@ -1,0 +1,52 @@
+# Diagrama de Base de Datos - Hotel Casa Preciado
+
+## Tabla: User (Usuarios)
+- id (PK, número)
+- email (texto, único)
+- password (texto, encriptado)
+- name (texto)
+- role (texto: 'guest', 'receptionist', 'admin')
+- document (texto, cédula)
+- phone (texto)
+- createdAt (fecha)
+- updatedAt (fecha)
+
+## Tabla: Room (Habitaciones)
+- id (PK, número)
+- number (número, único: 101,102...)
+- type (texto: 'estandar', 'suite', 'familiar')
+- floor (número)
+- price (número, en pesos)
+- capacity (número, personas)
+- description (texto)
+- status (texto: 'available', 'occupied', 'maintenance', 'cleaning')
+- createdAt (fecha)
+- updatedAt (fecha)
+
+## Tabla: Booking (Reservas)
+- id (PK, número)
+- userId (FK -> User.id)
+- roomId (FK -> Room.id)
+- checkIn (fecha)
+- checkOut (fecha)
+- guests (número)
+- totalPrice (número)
+- status (texto: 'pending', 'confirmed', 'checked_in', 'checked_out', 'cancelled')
+- createdAt (fecha)
+- updatedAt (fecha)
+
+## Tabla: Invoice (Facturas)
+- id (PK, número)
+- bookingId (FK -> Booking.id, único)
+- issueDate (fecha)
+- subtotal (número)
+- tax (número, 19% IVA)
+- total (número)
+- pdfUrl (texto, opcional)
+- createdAt (fecha)
+- updatedAt (fecha)
+
+## Relaciones:
+- Un User puede tener muchas Bookings
+- Una Room puede tener muchas Bookings (pero no en las mismas fechas)
+- Una Booking genera una Invoice
