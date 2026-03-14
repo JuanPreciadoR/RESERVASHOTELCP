@@ -4,13 +4,15 @@ const app = express();
 
 // Importar rutas
 const roomsRoutes = require('./routes/rooms');
+const authRoutes = require('./routes/auth');
 
 // Middlewares
-app.use(cors()); // <-- ESTA LÍNEA ES LA SOLUCIÓN
+app.use(cors()); 
 app.use(express.json());
 
 // Rutas
 app.use('/api/rooms', roomsRoutes);
+app.use('/api/auth', authRoutes);
 
 app.get('/', (req, res) => {
     res.send('API del Hotel Casa Preciado - version 1.0');
