@@ -7,7 +7,7 @@ const API_URL = 'http://localhost:3000/api/bookings';
 // Configurar headers con token
 const authHeaders = () => ({
   headers: {
-    Authorization: Bearer 
+    Authorization: `Bearer ${getToken()}` 
   }
 });
 

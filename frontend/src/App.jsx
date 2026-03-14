@@ -7,10 +7,15 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/auth/LoginPage';
 import RegisterPage from './pages/auth/RegisterPage';
 import RoomsPage from './pages/rooms/RoomsPage';
+import RoomTypePage from './pages/rooms/RoomTypePage';
 import RoomDetailPage from './pages/rooms/RoomDetailPage';
 import MyBookingsPage from './pages/bookings/MyBookingsPage';
 import BookingDetailPage from './pages/bookings/BookingDetailPage';
 import ProfilePage from './pages/ProfilePage';
+
+// Importar páginas de admin
+import DashboardPage from './pages/admin/DashboardPage';
+import UsersPage from './pages/admin/UsersPage';
 
 function App() {
   return (
@@ -21,10 +26,15 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/rooms" element={<RoomsPage />} />
+        <Route path="/rooms/type/:type" element={<RoomTypePage />} />
         <Route path="/rooms/:id" element={<RoomDetailPage />} />
         <Route path="/my-bookings" element={<MyBookingsPage />} />
         <Route path="/my-bookings/:id" element={<BookingDetailPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        
+        {/* Rutas de admin */}
+        <Route path="/admin/dashboard" element={<DashboardPage />} />
+        <Route path="/admin/users" element={<UsersPage />} />
       </Routes>
     </BrowserRouter>
   );

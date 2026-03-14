@@ -30,7 +30,7 @@ export const getProfile = async (token) => {
   try {
     const response = await axios.get(`${API_URL}/profile`, {
       headers: {
-        Authorization: Bearer 
+        Authorization: `Bearer ${token}`
       }
     });
     return response.data;

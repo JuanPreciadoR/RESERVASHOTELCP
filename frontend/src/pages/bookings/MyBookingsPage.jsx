@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Card, Button, Alert, Spinner, Badge } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button, Alert, Spinner, Badge, Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { getMyBookings, cancelBooking } from '../../services/bookings';
 import { useAuth } from '../../contexts/AuthContext';
@@ -10,6 +10,10 @@ function MyBookingsPage() {
   const [error, setError] = useState('');
   const [cancelling, setCancelling] = useState(null);
   const { isAuthenticated } = useAuth();
+
+  // Estado para el modal de cancelación
+  const [showCancelModal, setShowCancelModal] = useState(false);
+  const [bookingToCancel, setBookingToCancel] = useState(null);
 
   const loadBookings = async () => {
     try {
@@ -26,18 +30,27 @@ function MyBookingsPage() {
     loadBookings();
   }, []);
 
-  const handleCancel = async (id) => {
-    if (!window.confirm('¿Estás seguro de cancelar esta reserva?')) return;
+  // Abrir modal de confirmación
+  const openCancelModal = (booking) => {
+    setBookingToCancel(booking);
+    setShowCancelModal(true);
+  };
+
+  // Cancelar reserva (después de confirmar)
+  const confirmCancel = async () => {
+    if (!bookingToCancel) return;
     
-    setCancelling(id);
+    setCancelling(bookingToCancel.id);
+    setShowCancelModal(false);
+    
     try {
-      await cancelBooking(id);
-      // Recargar la lista
+      await cancelBooking(bookingToCancel.id);
       await loadBookings();
     } catch (err) {
       setError(err.message || 'Error al cancelar reserva');
     } finally {
       setCancelling(null);
+      setBookingToCancel(null);
     }
   };
 
@@ -134,7 +147,7 @@ function MyBookingsPage() {
                       <Button
                         variant="outline-danger"
                         size="sm"
-                        onClick={() => handleCancel(booking.id)}
+                        onClick={() => openCancelModal(booking)}
                         disabled={cancelling === booking.id}
                       >
                         {cancelling === booking.id ? 'Cancelando...' : 'Cancelar'}
@@ -147,6 +160,36 @@ function MyBookingsPage() {
           ))}
         </Row>
       )}
+
+      {/* Modal de confirmación para cancelar reserva */}
+      <Modal show={showCancelModal} onHide={() => setShowCancelModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title style={{ color: '#8B4513' }}>Confirmar cancelación</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {bookingToCancel && (
+            <>
+              <p>¿Estás seguro de que deseas cancelar esta reserva?</p>
+              <p>
+                <strong>Habitación:</strong> {bookingToCancel.room?.type} #{bookingToCancel.room?.number}<br />
+                <strong>Fechas:</strong> {new Date(bookingToCancel.checkIn).toLocaleDateString()} - {new Date(bookingToCancel.checkOut).toLocaleDateString()}
+              </p>
+              <p className="text-muted">Esta acción no se puede deshacer.</p>
+            </>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowCancelModal(false)}>
+            No, volver
+          </Button>
+          <Button 
+            variant="danger" 
+            onClick={confirmCancel}
+          >
+            Sí, cancelar reserva
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 }

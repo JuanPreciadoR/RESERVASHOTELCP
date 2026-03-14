@@ -29,6 +29,12 @@ function NavigationBar() {
                 <Nav.Link as={Link} to="/profile">Mi Perfil</Nav.Link>
               </>
             )}
+            {user?.role === 'admin' && (
+              <>
+                <Nav.Link as={Link} to="/admin/dashboard">Dashboard</Nav.Link>
+                <Nav.Link as={Link} to="/admin/users">Usuarios</Nav.Link>
+              </>
+            )}
           </Nav>
           <Nav>
             {isAuthenticated ? (
