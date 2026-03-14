@@ -1,4 +1,3 @@
-// Navbar.jsx - Barra de navegación principal
 import React from 'react';
 import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
@@ -29,6 +28,12 @@ function NavigationBar() {
                 <Nav.Link as={Link} to="/profile">Mi Perfil</Nav.Link>
               </>
             )}
+            {['receptionist', 'admin'].includes(user?.role) && (
+              <>
+                <Nav.Link as={Link} to="/receptionist/bookings">Recepción</Nav.Link>
+                <Nav.Link as={Link} to="/receptionist/search">Buscar Huéspedes</Nav.Link>
+              </>
+            )}
             {user?.role === 'admin' && (
               <>
                 <Nav.Link as={Link} to="/admin/dashboard">Dashboard</Nav.Link>
@@ -40,7 +45,7 @@ function NavigationBar() {
             {isAuthenticated ? (
               <>
                 <Navbar.Text className="me-3">
-                  Hola, {user?.name || 'Usuario'}
+                  Hola, {user?.name || 'Usuario'} ({user?.role})
                 </Navbar.Text>
                 <Button variant="outline-danger" size="sm" onClick={handleLogout}>
                   Cerrar Sesión

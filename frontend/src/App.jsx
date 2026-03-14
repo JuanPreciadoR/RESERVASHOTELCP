@@ -12,10 +12,16 @@ import RoomDetailPage from './pages/rooms/RoomDetailPage';
 import MyBookingsPage from './pages/bookings/MyBookingsPage';
 import BookingDetailPage from './pages/bookings/BookingDetailPage';
 import ProfilePage from './pages/ProfilePage';
+import EditProfilePage from './pages/EditProfilePage';
 
 // Importar páginas de admin
 import DashboardPage from './pages/admin/DashboardPage';
 import UsersPage from './pages/admin/UsersPage';
+
+// Importar páginas de recepcionista
+import AllBookingsPage from './pages/receptionist/AllBookingsPage';
+import SearchGuestsPage from './pages/receptionist/SearchGuestsPage';
+import CreateBookingForGuestPage from './pages/receptionist/CreateBookingForGuestPage';
 
 function App() {
   return (
@@ -31,10 +37,16 @@ function App() {
         <Route path="/my-bookings" element={<MyBookingsPage />} />
         <Route path="/my-bookings/:id" element={<BookingDetailPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/profile/edit" element={<EditProfilePage />} />
         
         {/* Rutas de admin */}
         <Route path="/admin/dashboard" element={<DashboardPage />} />
         <Route path="/admin/users" element={<UsersPage />} />
+        
+        {/* Rutas de recepcionista */}
+        <Route path="/receptionist/bookings" element={<AllBookingsPage />} />
+        <Route path="/receptionist/search" element={<SearchGuestsPage />} />
+        <Route path="/receptionist/create-booking" element={<CreateBookingForGuestPage />} />
       </Routes>
     </BrowserRouter>
   );

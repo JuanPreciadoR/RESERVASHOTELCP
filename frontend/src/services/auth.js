@@ -3,6 +3,16 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:3000/api/auth';
 
+// Configurar headers con token
+const authHeaders = () => {
+  const token = getToken();
+  return {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  };
+};
+
 // Login
 export const login = async (credentials) => {
   try {
@@ -37,6 +47,17 @@ export const getProfile = async (token) => {
   } catch (error) {
     console.error('Error al obtener perfil:', error);
     throw error.response?.data || { message: 'Error al conectar con el servidor' };
+  }
+};
+
+// Actualizar perfil
+export const updateProfile = async (userData) => {
+  try {
+    const response = await axios.put(`${API_URL}/profile`, userData, authHeaders());
+    return response.data;
+  } catch (error) {
+    console.error('Error al actualizar perfil:', error);
+    throw error.response?.data || { message: 'Error al actualizar perfil' };
   }
 };
 

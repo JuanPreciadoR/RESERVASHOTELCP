@@ -136,7 +136,7 @@ function MyBookingsPage() {
                   <div className="d-flex gap-2">
                     <Button
                       as={Link}
-                      to={/my-bookings/}
+                      to={`/my-bookings/${booking.id}`}
                       variant="outline-primary"
                       size="sm"
                     >
