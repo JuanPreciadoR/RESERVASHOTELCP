@@ -1,0 +1,56 @@
+// Navbar.jsx - Barra de navegación principal
+import React from 'react';
+import { Navbar, Nav, Container, Button } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
+
+function NavigationBar() {
+  const { user, logout, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
+
+  return (
+    <Navbar bg="light" expand="lg" className="mb-4">
+      <Container>
+        <Navbar.Brand as={Link} to="/" style={{ color: '#8B4513', fontWeight: 'bold' }}>
+          Hotel Casa Preciado
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link as={Link} to="/rooms">Habitaciones</Nav.Link>
+            {isAuthenticated && (
+              <>
+                <Nav.Link as={Link} to="/my-bookings">Mis Reservas</Nav.Link>
+                <Nav.Link as={Link} to="/profile">Mi Perfil</Nav.Link>
+              </>
+            )}
+          </Nav>
+          <Nav>
+            {isAuthenticated ? (
+              <>
+                <Navbar.Text className="me-3">
+                  Hola, {user?.name || 'Usuario'}
+                </Navbar.Text>
+                <Button variant="outline-danger" size="sm" onClick={handleLogout}>
+                  Cerrar Sesión
+                </Button>
+              </>
+            ) : (
+              <>
+                <Nav.Link as={Link} to="/login">Iniciar Sesión</Nav.Link>
+                <Nav.Link as={Link} to="/register">Registrarse</Nav.Link>
+              </>
+            )}
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+  );
+}
+
+export default NavigationBar;

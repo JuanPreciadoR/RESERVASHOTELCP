@@ -1,12 +1,32 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import NavigationBar from './components/Navbar';
 
-import RoomList from './components/RoomList';
+// Importar páginas
+import HomePage from './pages/HomePage';
+import LoginPage from './pages/auth/LoginPage';
+import RegisterPage from './pages/auth/RegisterPage';
+import RoomsPage from './pages/rooms/RoomsPage';
+import RoomDetailPage from './pages/rooms/RoomDetailPage';
+import MyBookingsPage from './pages/bookings/MyBookingsPage';
+import BookingDetailPage from './pages/bookings/BookingDetailPage';
+import ProfilePage from './pages/ProfilePage';
+
 function App() {
   return (
-    <div style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}>
-      <h1 style={{ color: '#8B4513', textAlign: 'center' }}>Hotel Casa Preciado</h1>
-      <p style={{ textAlign: 'center', color: '#666' }}>Tu refugio de lujo en la ciudad</p>
-      <RoomList />
-    </div>
+    <BrowserRouter>
+      <NavigationBar />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/rooms" element={<RoomsPage />} />
+        <Route path="/rooms/:id" element={<RoomDetailPage />} />
+        <Route path="/my-bookings" element={<MyBookingsPage />} />
+        <Route path="/my-bookings/:id" element={<BookingDetailPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
