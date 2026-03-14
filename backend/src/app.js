@@ -1,19 +1,19 @@
-//Importar Express y crear app
 const express = require('express');
+const cors = require('cors');
 const app = express();
 
-//Importar Rutas
+// Importar rutas
 const roomsRoutes = require('./routes/rooms');
 
-//Middleware para parsear JSON (Importante para recibir datos)
+// Middlewares
+app.use(cors()); // <-- ESTA LÍNEA ES LA SOLUCIÓN
 app.use(express.json());
 
-//Rutas
+// Rutas
 app.use('/api/rooms', roomsRoutes);
 
-//Ruta de prueba
 app.get('/', (req, res) => {
     res.send('API del Hotel Casa Preciado - version 1.0');
-})
+});
 
 module.exports = app;
