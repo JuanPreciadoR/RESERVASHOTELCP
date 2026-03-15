@@ -17,11 +17,16 @@ import EditProfilePage from './pages/EditProfilePage';
 // Importar páginas de admin
 import DashboardPage from './pages/admin/DashboardPage';
 import UsersPage from './pages/admin/UsersPage';
+import ReportsPage from './pages/admin/ReportsPage';
+import RoomsManagementPage from './pages/admin/RoomsManagementPage';
 
 // Importar páginas de recepcionista
 import AllBookingsPage from './pages/receptionist/AllBookingsPage';
 import SearchGuestsPage from './pages/receptionist/SearchGuestsPage';
 import CreateBookingForGuestPage from './pages/receptionist/CreateBookingForGuestPage';
+
+// Importar calendario
+import CalendarPage from './pages/CalendarPage';
 
 function App() {
   return (
@@ -42,11 +47,16 @@ function App() {
         {/* Rutas de admin */}
         <Route path="/admin/dashboard" element={<DashboardPage />} />
         <Route path="/admin/users" element={<UsersPage />} />
+        <Route path="/admin/reports" element={<ReportsPage />} />
+        <Route path="/admin/rooms" element={<RoomsManagementPage />} />
         
         {/* Rutas de recepcionista */}
         <Route path="/receptionist/bookings" element={<AllBookingsPage />} />
         <Route path="/receptionist/search" element={<SearchGuestsPage />} />
         <Route path="/receptionist/create-booking" element={<CreateBookingForGuestPage />} />
+        
+        {/* Calendario */}
+        <Route path="/calendar" element={<CalendarPage />} />
       </Routes>
     </BrowserRouter>
   );

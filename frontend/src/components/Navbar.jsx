@@ -32,12 +32,15 @@ function NavigationBar() {
               <>
                 <Nav.Link as={Link} to="/receptionist/bookings">Recepción</Nav.Link>
                 <Nav.Link as={Link} to="/receptionist/search">Buscar Huéspedes</Nav.Link>
+                <Nav.Link as={Link} to="/calendar">Calendario</Nav.Link>
               </>
             )}
             {user?.role === 'admin' && (
               <>
                 <Nav.Link as={Link} to="/admin/dashboard">Dashboard</Nav.Link>
                 <Nav.Link as={Link} to="/admin/users">Usuarios</Nav.Link>
+                <Nav.Link as={Link} to="/admin/reports">Reportes</Nav.Link>
+                <Nav.Link as={Link} to="/admin/rooms">Habitaciones</Nav.Link>
               </>
             )}
           </Nav>

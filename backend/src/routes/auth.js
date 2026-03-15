@@ -3,12 +3,12 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { PrismaClient } = require('@prisma/client');
-const authMiddleware = require('../middlewares/auth'); // Importar middleware
+const authMiddleware = require('../middlewares/auth');
 
 const router = express.Router();
 const prisma = new PrismaClient();
 
-// Registro
+// Registro de usuario
 router.post('/register', async (req, res) => {
   try {
     const { email, password, name, document, phone } = req.body;
@@ -53,7 +53,7 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// Login
+// Login de usuario
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -108,10 +108,9 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// Ruta protegida: Obtener perfil del usuario autenticado (NUEVO)
+// Obtener perfil del usuario autenticado
 router.get('/profile', authMiddleware, async (req, res) => {
   try {
-    // req.user viene del middleware (tiene id, email, role)
     const user = await prisma.user.findUnique({
       where: { id: req.user.id },
       select: {
@@ -122,7 +121,6 @@ router.get('/profile', authMiddleware, async (req, res) => {
         document: true,
         phone: true,
         createdAt: true
-        // Excluimos password explícitamente
       }
     });
 
@@ -131,6 +129,39 @@ router.get('/profile', authMiddleware, async (req, res) => {
     console.error('Error al obtener perfil:', error);
     res.status(500).json({ 
       message: 'Error al obtener perfil' 
+    });
+  }
+});
+
+// ACTUALIZAR perfil del usuario (NUEVO)
+router.put('/profile', authMiddleware, async (req, res) => {
+  try {
+    const { name, document, phone } = req.body;
+    const userId = req.user.id;
+
+    const updatedUser = await prisma.user.update({
+      where: { id: userId },
+      data: {
+        name,
+        document,
+        phone
+      },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        role: true,
+        document: true,
+        phone: true,
+        createdAt: true
+      }
+    });
+
+    res.json(updatedUser);
+  } catch (error) {
+    console.error('Error al actualizar perfil:', error);
+    res.status(500).json({ 
+      message: 'Error al actualizar perfil' 
     });
   }
 });
