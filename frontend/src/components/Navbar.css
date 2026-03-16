@@ -1,0 +1,197 @@
+/* Estilos del Nabvar */
+
+/* Variables de color (fáciles de modificar) */
+:root {
+  --verde-oscuro: #1B4D3E;      /* Color principal*/
+  --verde-hover: #2C6B55;       /* Verde más claro para hover */
+  --dorado: #C5A059;            /* Acento de lujo */
+  --dorado-hover: #D4B47C;      /* Dorado más claro */
+  --texto-claro: #F8F6F4;       /* Texto sobre fondo oscuro */
+  --texto-oscuro: #2C3E50;      /* Texto sobre fondo claro */
+  --sombra: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --transicion: all 0.3s ease;
+}
+
+/*CONTENEDOR PRINCIPAL DEL NAVBAR*/ 
+.navbar-premium {
+  background-color: var(--verde-oscuro) !important;
+  box-shadow: var(--sombra);
+  padding: 0.5rem 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* LOGO Y MARCA*/
+.navbar-premium .navbar-brand {
+  color: var(--texto-claro) !important;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: var(--transicion);
+}
+
+.navbar-premium .navbar-brand:hover {
+  transform: scale(1.02);
+  color: var(--dorado) !important;
+}
+
+.navbar-premium .brand-icon {
+  color: var(--dorado);
+  font-size: 1.8rem;
+}
+
+.navbar-premium .brand-highlight {
+  color: var(--dorado);
+  font-weight: 700;
+}
+
+/* ESTILOS BASE PARA ENLACES */
+.navbar-premium .nav-link {
+  color: var(--texto-claro) !important;
+  margin: 0 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: var(--transicion);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  position: relative;
+}
+
+/* Efecto hover con línea inferior*/
+.navbar-premium .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background-color: var(--dorado);
+  transition: width 0.3s ease;
+}
+
+.navbar-premium .nav-link:hover::after {
+  width: 70%;
+}
+
+.navbar-premium .nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--dorado) !important;
+}
+
+/* BOTÓN DE REGISTRO */
+.navbar-premium .register-link {
+  background-color: var(--dorado) !important;
+  color: var(--verde-oscuro) !important;
+  font-weight: 600 !important;
+  border-radius: 4px;
+  padding: 0.5rem 1.2rem !important;
+}
+
+.navbar-premium .register-link:hover {
+  background-color: var(--dorado-hover) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(197, 160, 89, 0.3);
+}
+
+.navbar-premium .register-link:hover::after {
+  display: none; /* Quita la línea inferior en el botón de registro */
+}
+
+/* MENÚS DESPLEGABLE */
+.navbar-premium .dropdown-menu {
+  background-color: var(--texto-oscuro) !important;
+  border: none;
+  box-shadow: var(--sombra);
+  margin-top: 0.5rem;
+  padding: 0.5rem 0;
+}
+
+.navbar-premium .dropdown-item {
+  color: var(--texto-claro) !important;
+  padding: 0.75rem 1.5rem;
+  transition: var(--transicion);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.navbar-premium .dropdown-item:hover {
+  background-color: var(--verde-oscuro) !important;
+  color: var(--dorado) !important;
+  padding-left: 2rem;
+}
+
+.navbar-premium .dropdown-divider {
+  background-color: var(--dorado) !important;
+  opacity: 0.3;
+  margin: 0.5rem 0;
+}
+
+/* ÍCONOS */
+.navbar-premium .nav-icon {
+  font-size: 1.2rem;
+  color: var(--dorado);
+  transition: var(--transicion);
+}
+
+.nav-link:hover .nav-icon {
+  transform: scale(1.1);
+}
+
+/* BOTÓN DE MENÚ MÓVIL (Hamburguesa)*/
+.navbar-premium .navbar-toggler {
+  border-color: var(--texto-claro);
+  padding: 0.5rem;
+}
+
+.navbar-premium .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23F8F6F4' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* ANIMACIONES ADICIONALES */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.navbar-premium .dropdown-menu.show {
+  animation: slideDown 0.2s ease-out;
+}
+
+/* RESPONSIVE*/
+@media (max-width: 991px) {
+  .navbar-premium .nav-link {
+    margin: 0.5rem 0;
+    text-align: center;
+    justify-content: center;
+  }
+  
+  .navbar-premium .nav-link::after {
+    display: none;
+  }
+  
+  .navbar-premium .dropdown-menu {
+    background-color: transparent !important;
+    box-shadow: none;
+    border-left: 2px solid var(--dorado);
+    margin-left: 1rem;
+  }
+  
+  .navbar-premium .dropdown-item {
+    color: var(--texto-claro) !important;
+    justify-content: center;
+  }
+}

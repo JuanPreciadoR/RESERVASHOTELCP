@@ -6,9 +6,6 @@ const adminMiddleware = require('../middlewares/admin');
 const router = express.Router();
 const prisma = new PrismaClient();
 
-// Todas las rutas requieren autenticación y ser admin
-router.use(authMiddleware);
-router.use(adminMiddleware);
 
 // Obtener todas las habitaciones (incluye estado)
 router.get('/', async (req, res) => {
