@@ -12,7 +12,6 @@ function ReportsPage() {
     const [error, setError] = useState('');
     const [occupancyData, setOccupancyData] = useState(null);
     const [revenueData, setRevenueData] = useState(null);
-    const [activeTab, setActiveTab] = useState('occupancy');
 
     const API_URL = 'http://localhost:3000/api/reports';
     const authHeaders = () => ({

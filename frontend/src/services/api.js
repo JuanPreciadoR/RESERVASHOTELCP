@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// La URL de nuestro backend (Express)
-const API_URL = 'http://localhost:3000/api';
+// URL del backend - usar variable de entorno o fallback a localhost
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
 
 export const getRooms = async () => {
     try {

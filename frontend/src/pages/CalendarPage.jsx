@@ -1,12 +1,11 @@
 //Pagina de calendario
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Container, Card, Alert, Spinner } from 'react-bootstrap';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { useAuth } from '../contexts/AuthContext';
 import axios from 'axios';
-import { getToken } from '../services/auth';
 
 function CalendarPage() {
   const { user } = useAuth();
@@ -15,16 +14,14 @@ function CalendarPage() {
   const [error, setError] = useState('');
 
   const API_URL = 'http://localhost:3000/api/calendar';
-  const authHeaders = () => ({
-    headers: { Authorization: Bearer  }
-  });
 
   const loadEvents = async (start, end) => {
     setLoading(true);
     try {
+      const token = localStorage.getItem('token');
       const response = await axios.get(
         `${API_URL}/events?start=${start.toISOString()}&end=${end.toISOString()}`,
-        authHeaders()
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       setEvents(response.data);
     } catch (err) {

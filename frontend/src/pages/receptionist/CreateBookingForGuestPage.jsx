@@ -63,7 +63,7 @@ function CreateBookingForGuestPage() {
         userId: guest?.id // Solo se envía si es recepcionista
       };
 
-      const result = await createBooking(bookingData);
+      await createBooking(bookingData);
       setSuccess('Reserva creada exitosamente');
       setTimeout(() => {
         navigate('/receptionist/bookings');

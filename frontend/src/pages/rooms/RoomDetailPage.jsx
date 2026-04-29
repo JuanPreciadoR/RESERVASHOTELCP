@@ -39,15 +39,6 @@ function RoomDetailPage() {
     loadRoom();
   }, [id]);
 
-  // Calcular precio total
-  const calculateTotal = () => {
-    if (!checkIn || !checkOut || !room) return 0;
-    const start = new Date(checkIn);
-    const end = new Date(checkOut);
-    const nights = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
-    return nights * room.price;
-  };
-
   // Manejar reserva
   const handleBooking = async (e) => {
     e.preventDefault();
@@ -87,7 +78,7 @@ function RoomDetailPage() {
         guests
       };
       
-      const result = await createBooking(bookingData);
+      await createBooking(bookingData);
       setBookingSuccess('¡Reserva creada exitosamente!');
       
       // Redirigir al detalle de la reserva después de 2 segundos
